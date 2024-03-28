@@ -119,7 +119,7 @@ in {
     };
 
     boot.kernelModules = [ "ec_sys" ];
-    boot.extraModprobeConfig = "options ec_sys write_support=1";
+    boot.extraModprobeConfig = lib.mkOrder 153 "options ec_sys write_support=1";
 
     environment.etc."isw.conf".text = (
       builtins.readFile "${iswPkg}/etc/isw.conf"
