@@ -24,8 +24,8 @@ in {
 
     fan_mode = lib.mkOption {
       description = "Value of fan_mode can be 140, 76 or 12, for Advanced, Basic or Auto. Advanced seems to work better with suspend/hibernate.";
-      type = lib.types.str;
-      default = "140";
+      type = lib.types.int;
+      default = 140;
     };
 
     extraConfig = lib.mkOption {
@@ -50,7 +50,7 @@ in {
               value = lib.mkOption {
                 description = "cpu_temp_" + x;
                 type = lib.types.int;
-                default = 20 + 10*x;
+                default = 25 + 12*x;
               }; 
             }
           ) [ 0 1 2 3 4 5 ]
@@ -64,7 +64,7 @@ in {
               value = lib.mkOption {
                 description = "cpu_fan_speed_" + x;
                 type = lib.types.int;
-                default = 20 + 10*x;
+                default = 10 + 15*x;
               }; 
             }
           ) [ 0 1 2 3 4 5 6 ]
@@ -81,7 +81,7 @@ in {
               value = lib.mkOption {
                 description = "gpu_temp_" + x;
                 type = lib.types.int;
-                default = 20 + 10*x;
+                default = 25 + 12*x;
               }; 
             }
           ) [ 0 1 2 3 4 5 ]
@@ -95,7 +95,7 @@ in {
               value = lib.mkOption {
                 description = "gpu_fan_speed_" + x;
                 type = lib.types.int;
-                default = 20 + 10*x;
+                default = 10 + 15*x;
               }; 
             }
           ) [ 0 1 2 3 4 5 6 ]
@@ -128,7 +128,7 @@ in {
       [NIX]
 
       address_profile = ${cfg.address_profile}
-      fan_mode = ${cfg.fan_mode}
+      fan_mode = ${builtins.toString cfg.fan_mode}
 
     '') + "\n" + (
       lib.strings.concatStringsSep "\n" (
